@@ -33,6 +33,23 @@ class Main extends Component {
         />
       );
     };
+
+    const DishWithId = ({ match }) => {
+      //3 props-match,location,history
+      return (
+        <DishDetail
+          dish={
+            this.state.dishes.filter(
+              (dish) => dish.id === parseInt(match.params.dishId, 10)
+            )[0]
+          }
+          comments={this.state.comments.filter(
+            (comments) => comments.dishId === parseInt(match.params.dishId, 10)
+          )}
+        />
+      );
+    };
+
     return (
       <div>
         <Header />
@@ -45,6 +62,7 @@ class Main extends Component {
             path="/menu"
             component={() => <Menu dishes={this.state.dishes} />}
           />
+          <Route path="/menu/:dishId" component={DishWithId} />
           <Route exact path="/contactus" component={Contact} />} /> //to pass
           //attribute i.e dishes, of Menu, too, this syntax is used
           <Redirect to="/home" />
